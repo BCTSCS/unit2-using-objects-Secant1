@@ -34,6 +34,20 @@ public class Gene {
         return false;
     }
 
+    static int findStopCodon( String genome, int start) {
+
+        if (genome.length() % 3 != 0) {return -1;}
+    
+        for (int i = start; i < genome.length(); i += 3) {
+            String codon = genome.substring(i, i+3);
+            if (codon.equals("TAA") || codon.equals("TAG") || codon.equals("TGA")) {
+                return i;
+            }
+        }
+        return -1;
+    }
+    
+
     public static void main(String[] args) {
         String dna = "ATGCGATACGCTTGA";
 
@@ -44,6 +58,8 @@ public class Gene {
         System.out.println(findGenes(dna, 6));
         System.out.println("Is it a gene: ");
         System.out.println(potentialGene(dna));
+        System.out.println("First stop codon index: ");
+        System.out.println(findStopCodon(dna, 0));
     }
 
 }
